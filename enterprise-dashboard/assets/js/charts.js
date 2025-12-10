@@ -3,16 +3,16 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initTrendChart();
+    initStockChart();
 });
 
-function initTrendChart() {
+function initStockChart() {
     const ctx = document.getElementById('revenueChart').getContext('2d');
-    const data = window.MockData.salesData;
+    const data = window.MockData.stockHistory;
 
     // Prepare datasets
     const labels = data.map(d => d.name);
-    const revenueData = data.map(d => d.value); // Will be null for future
+    const stockData = data.map(d => d.value); // Will be null for future
     const predictionData = data.map(d => d.prediction); // Covers all
 
     new Chart(ctx, {
@@ -21,27 +21,27 @@ function initTrendChart() {
             labels: labels,
             datasets: [
                 {
-                    label: 'Revenue',
-                    data: revenueData,
+                    label: 'AAPL Price',
+                    data: stockData,
                     borderColor: '#2563EB', // Blue-600
                     backgroundColor: '#2563EB',
                     borderWidth: 3,
-                    tension: 0.4,
+                    tension: 0.1, // Less tension for stock charts
                     pointBackgroundColor: '#FFFFFF',
                     pointBorderColor: '#2563EB',
                     pointBorderWidth: 2,
                     pointRadius: 4,
                     pointHoverRadius: 6,
-                    spanGaps: false // Don't bridge gaps for null values
+                    spanGaps: false
                 },
                 {
-                    label: 'AI Prediction',
+                    label: 'AI Forecast',
                     data: predictionData,
-                    borderColor: '#93C5FD', // Blue-300
-                    backgroundColor: '#93C5FD',
+                    borderColor: '#10B981', // Green for prediction
+                    backgroundColor: '#10B981',
                     borderWidth: 3,
                     borderDash: [5, 5],
-                    tension: 0.4,
+                    tension: 0.1,
                     pointRadius: 0,
                     pointHoverRadius: 4,
                     zIndex: -1
@@ -80,7 +80,7 @@ function initTrendChart() {
                                 label += ': ';
                             }
                             if (context.parsed.y !== null) {
-                                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumSignificantDigits: 3 }).format(context.parsed.y);
+                                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumSignificantDigits: 5 }).format(context.parsed.y);
                             }
                             return label;
                         }

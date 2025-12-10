@@ -6,7 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     renderKPIGrid();
     renderSmartAlerts();
-    renderInventoryTable();
+    renderWatchlistTable();
     lucide.createIcons();
 });
 
@@ -49,7 +49,7 @@ function renderKPIGrid() {
                 </div>
 
                 <p class="relative z-10 mt-4 text-xs text-gray-400">
-                    vs last month
+                    since yesterday
                 </p>
             </div>
         `;
@@ -92,7 +92,7 @@ function renderSmartAlerts() {
     const container = document.getElementById('smart-alerts');
     if (!container) return;
 
-    let alerts = [...window.MockData.alertsData];
+    let alerts = [...window.MockData.marketAlerts];
 
     function render() {
         if (alerts.length === 0) {
@@ -139,8 +139,8 @@ function renderSmartAlerts() {
         container.innerHTML = `
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col">
                 <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <span class="flex h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
-                    Smart Alerts
+                    <span class="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
+                    Market Insights
                 </h3>
                 <div class="space-y-0"> 
                     ${alertsHtml}
@@ -163,31 +163,27 @@ function renderSmartAlerts() {
     render();
 }
 
-// --- InventoryTable Component ---
-function renderInventoryTable() {
+// --- WatchlistTable Component ---
+function renderWatchlistTable() {
     const container = document.getElementById('inventory-table-container');
     if (!container) return;
 
-    const rows = window.MockData.inventoryData.map(item => {
-        const badgeClass = item.status === 'Optimal' ? "bg-green-50 text-green-700 border-green-200" :
-            item.status === 'Low' ? "bg-amber-50 text-amber-700 border-amber-200" :
-                item.status === 'Warning' ? "bg-amber-50 text-amber-700 border-amber-200" :
-                    "bg-red-50 text-red-700 border-red-200";
+    const rows = window.MockData.watchlistData.map(item => {
+        const isPositive = item.status.includes('+');
+        const badgeClass = isPositive ? "bg-green-50 text-green-700 border-green-200" : "bg-red-50 text-red-700 border-red-200";
 
         return `
             <tr class="hover:bg-gray-50/50 transition-colors group">
-                <td class="px-6 py-4 font-medium text-gray-900">${item.item}</td>
-                <td class="px-6 py-4">${item.category}</td>
-                <td class="px-6 py-4">${item.stock}</td>
+                <td class="px-6 py-4 font-bold text-gray-900">${item.item}</td>
+                <td class="px-6 py-4 text-gray-500">${item.category}</td>
+                <td class="px-6 py-4 font-mono">${item.stock}</td>
                 <td class="px-6 py-4">
                     <span class="px-2.5 py-1 rounded-full text-xs font-semibold border ${badgeClass}">
                         ${item.status}
                     </span>
                 </td>
                 <td class="px-6 py-4 text-right">
-                    <button class="p-2 text-gray-400 hover:text-blue-600 rounded-full hover:bg-blue-50 transition-colors opacity-0 group-hover:opacity-100">
-                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
-                    </button>
+                    <span class="text-xs text-gray-400 font-medium">${item.lastOrdered}</span>
                 </td>
             </tr>
         `;
@@ -196,18 +192,18 @@ function renderInventoryTable() {
     container.innerHTML = `
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-                <h3 class="text-lg font-bold text-gray-900">Inventory Status</h3>
-                <button class="text-sm font-medium text-blue-600 hover:text-blue-700">View All</button>
+                <h3 class="text-lg font-bold text-gray-900">Market Movers & Watchlist</h3>
+                <button class="text-sm font-medium text-blue-600 hover:text-blue-700">View Full List</button>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm text-gray-600">
                     <thead class="bg-gray-50/50">
                         <tr>
-                            <th class="px-6 py-4 font-semibold text-gray-900">Item</th>
-                            <th class="px-6 py-4 font-semibold text-gray-900">Category</th>
-                            <th class="px-6 py-4 font-semibold text-gray-900">Stock</th>
-                            <th class="px-6 py-4 font-semibold text-gray-900">Status</th>
-                            <th class="px-6 py-4 font-semibold text-gray-900 text-right">Actions</th>
+                            <th class="px-6 py-4 font-semibold text-gray-900">Ticker</th>
+                            <th class="px-6 py-4 font-semibold text-gray-900">Company</th>
+                            <th class="px-6 py-4 font-semibold text-gray-900">Price</th>
+                            <th class="px-6 py-4 font-semibold text-gray-900">Change</th>
+                            <th class="px-6 py-4 font-semibold text-gray-900 text-right">Signal</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
