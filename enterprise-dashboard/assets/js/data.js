@@ -61,10 +61,53 @@ const marketAlerts = [
     { id: 3, type: "info", message: "Fed meeting minutes released at 2:00 PM EST." },
 ];
 
-// Exposure to global scope for simplicity in vanilla JS without bundlers
+// --- Procedural Data Generation for "Massive" Dataset ---
+const sectors = ['Technology', 'Healthcare', 'Finance', 'Energy', 'Consumer', 'Industrial'];
+const suffixes = ['Inc', 'Corp', 'Ltd', 'Group', 'Holdings', 'Systems'];
+
+function generateCompanies(count) {
+    const companies = [
+        { symbol: "AAPL", name: "Apple Inc.", price: 185.90, change: 1.5, sector: "Technology" },
+        { symbol: "MSFT", name: "Microsoft Corp.", price: 370.20, change: 0.8, sector: "Technology" },
+        { symbol: "GOOGL", name: "Alphabet Inc.", price: 135.50, change: -0.2, sector: "Technology" },
+        { symbol: "AMZN", name: "Amazon.com", price: 145.20, change: 0.5, sector: "Consumer" },
+        { symbol: "NVDA", name: "NVIDIA Corp", price: 475.00, change: 2.3, sector: "Technology" },
+        { symbol: "TSLA", name: "Tesla, Inc.", price: 240.30, change: -0.8, sector: "Consumer" },
+        { symbol: "META", name: "Meta Platforms", price: 330.10, change: 1.1, sector: "Technology" },
+        { symbol: "BRK.B", name: "Berkshire Hathaway", price: 360.50, change: 0.1, sector: "Finance" },
+        { symbol: "LLY", name: "Eli Lilly", price: 590.20, change: 1.8, sector: "Healthcare" },
+        { symbol: "V", name: "Visa Inc.", price: 250.80, change: 0.4, sector: "Finance" },
+    ];
+
+    for (let i = 0; i < count; i++) {
+        const sector = sectors[Math.floor(Math.random() * sectors.length)];
+        const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+        const letter1 = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+        const letter2 = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+        const letter3 = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+        const symbol = `${letter1}${letter2}${letter3}`;
+
+        const price = (Math.random() * 500 + 10).toFixed(2);
+        const change = (Math.random() * 10 - 5).toFixed(2); // -5% to +5%
+
+        companies.push({
+            symbol: symbol,
+            name: `${symbol} ${sector} ${suffix}`,
+            price: parseFloat(price),
+            change: parseFloat(change),
+            sector: sector
+        });
+    }
+    return companies;
+}
+
+const allCompanies = generateCompanies(200);
+
+// Exposure to global scope
 window.MockData = {
     kpiData,
     stockHistory,
     watchlistData,
-    marketAlerts
+    marketAlerts,
+    allCompanies
 };

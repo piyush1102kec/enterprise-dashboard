@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Stock Prediction</title>
+    <title>Watchlist - Stock.io</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -41,13 +41,13 @@
             <div class="px-4 space-y-2">
                 <!-- Menu Items -->
                 <a href="index.html"
-                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group bg-blue-600 text-white shadow-lg shadow-blue-900/20">
-                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-white"></i>
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-slate-400 hover:bg-slate-800 hover:text-white">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-slate-400 group-hover:text-white"></i>
                     <span class="font-medium">Market</span>
                 </a>
                 <a href="watchlist.html"
-                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-slate-400 hover:bg-slate-800 hover:text-white">
-                    <i data-lucide="eye" class="w-5 h-5 text-slate-400 group-hover:text-white"></i>
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group bg-blue-600 text-white shadow-lg shadow-blue-900/20">
+                    <i data-lucide="eye" class="w-5 h-5 text-white"></i>
                     <span class="font-medium">Watchlist</span>
                 </a>
                 <a href="screener.html"
@@ -123,44 +123,12 @@
     <main class="pl-0 md:pl-64 pt-16 min-h-screen transition-all duration-300">
         <div class="p-8 max-w-7xl mx-auto space-y-8 animate-fade-in-up">
             <div>
-                <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Stock Market & Predictions</h1>
-                <p class="text-gray-500">Real-time market analysis and AI-driven forecasts.</p>
+                <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Your Watchlist</h1>
+                <p class="text-gray-500">Track your favorite stocks and get real-time price alerts.</p>
             </div>
 
-            <!-- KPI Grid -->
-            <div id="kpi-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                <div class="xl:col-span-2 space-y-6">
-                    <!-- Trend Chart -->
-                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col h-[400px]">
-                        <div class="flex justify-between items-center mb-6">
-                            <div>
-                                <h3 class="text-lg font-bold text-gray-900">Price Forecast (AAPL)</h3>
-                                <p class="text-sm text-gray-500">AI-powered predictive analytics for next hours</p>
-                            </div>
-                            <select
-                                class="bg-gray-50 border-none text-sm text-gray-600 font-medium rounded-lg py-2 px-4 focus:ring-2 focus:ring-blue-100 outline-none cursor-pointer hover:bg-gray-100 transition-colors">
-                                <option>1 Day</option>
-                                <option>1 Week</option>
-                                <option>1 Month</option>
-                            </select>
-                        </div>
-                        <div class="flex-1 w-full min-h-0 relative">
-                            <canvas id="revenueChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="space-y-6">
-                    <!-- Smart Alerts -->
-                    <div id="smart-alerts"></div>
-                </div>
-            </div>
-
-            <div class="pt-2">
-                <!-- Inventory Table -->
-                <div id="inventory-table-container"></div>
-            </div>
+            <!-- Watchlist Table (Reusing component) -->
+            <div id="inventory-table-container"></div>
         </div>
     </main>
 

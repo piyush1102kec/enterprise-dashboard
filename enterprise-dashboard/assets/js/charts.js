@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initStockChart() {
-    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const canvas = document.getElementById('revenueChart');
+    if (!canvas) return; // Exit if chart on this page
+    const ctx = canvas.getContext('2d');
     const data = window.MockData.stockHistory;
 
     // Prepare datasets
