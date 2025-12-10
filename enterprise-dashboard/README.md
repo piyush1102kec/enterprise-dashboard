@@ -1,73 +1,32 @@
-# React + TypeScript + Vite
+# Enterprise Dashboard (Vanilla JS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance, static dashboard built with:
+- **HTML5**
+- **Tailwind CSS** (via CDN)
+- **Chart.js**
+- **Vanilla JavaScript** (No Frameworks)
 
-Currently, two official plugins are available:
+## How to Run
+This is a static website. You do not need `npm`, `node`, or a build server.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Locate the folder** in your file explorer.
+2. **Double-click** `index.html`.
+3. The dashboard will open in your default browser.
 
-## React Compiler
+## Project Structure
+- `index.html`: The main entry point. Contains the layout skeleton.
+- `assets/css/style.css`: Custom animations and scrollbar styles.
+- `assets/js`:
+    - `main.js`: Core logic for rendering components (Alerts, Inventory Table).
+    - `charts.js`: Chart.js configurations (Revenue/Forecast Chart).
+    - `data.js`: Mock data used across the application.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Customization
+- **Styling**: Most styling is handled via Tailwind utility classes in `index.html`. Custom CSS is in `assets/css/style.css`.
+- **Data**: Edit `assets/js/data.js` to change the numbers and labels.
+- **Charts**: Edit `assets/js/charts.js` to modify the chart appearance.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Dependencies (CDNs)
+- Tailwind CSS: `cdn.tailwindcss.com`
+- Chart.js: `cdn.jsdelivr.net`
+- Lucide Icons: `unpkg.com/lucide`
